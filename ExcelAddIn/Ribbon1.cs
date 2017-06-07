@@ -20,7 +20,7 @@ namespace ExcelAddIn
         private void autoFocusButton_Click(object sender, RibbonControlEventArgs e)
         {
             Excel.Window window = e.Control.Context;
-            
+
             Excel.Workbook activeWorkbook = (Excel.Workbook)window.Application.ActiveWorkbook;
 
             foreach (var item in activeWorkbook.Sheets)
@@ -70,7 +70,7 @@ namespace ExcelAddIn
         {
             Excel.Window window = e.Control.Context;
             Excel.Worksheet temp = (Excel.Worksheet)window.Application.ActiveSheet;
-            
+
             using (var fbd = new FolderBrowserDialog())
             {
                 fbd.Description = "対象フォルダ";
@@ -78,7 +78,7 @@ namespace ExcelAddIn
 
                 if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
                 {
-                    string[] files = Directory.GetFiles(fbd.SelectedPath,"*.xls",SearchOption.AllDirectories);
+                    string[] files = Directory.GetFiles(fbd.SelectedPath, "*.xls", SearchOption.AllDirectories);
 
                     int i = 1;
                     foreach (var item in files)
@@ -103,7 +103,7 @@ namespace ExcelAddIn
                         }
                     }
                     temp.Activate();
-                    temp.get_Range("A" + i).Value = "処理完了　完了" + (i-1);
+                    temp.get_Range("A" + i).Value = "処理完了　完了" + (i - 1);
                     MessageBox.Show("処理完了　完了" + (i - 1));
                 }
             }
@@ -138,7 +138,7 @@ namespace ExcelAddIn
                 }
 
                 Process.Start(path);
-                
+
             }
         }
     }

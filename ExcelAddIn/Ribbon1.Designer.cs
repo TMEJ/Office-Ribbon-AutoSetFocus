@@ -36,10 +36,10 @@
         {
             this.tab1 = this.Factory.CreateRibbonTab();
             this.group1 = this.Factory.CreateRibbonGroup();
-            this.group2 = this.Factory.CreateRibbonGroup();
-            this.group3 = this.Factory.CreateRibbonGroup();
             this.autoFocusButton = this.Factory.CreateRibbonButton();
+            this.group2 = this.Factory.CreateRibbonGroup();
             this.button1 = this.Factory.CreateRibbonButton();
+            this.group3 = this.Factory.CreateRibbonGroup();
             this.button2 = this.Factory.CreateRibbonButton();
             this.button3 = this.Factory.CreateRibbonButton();
             this.tab1.SuspendLayout();
@@ -61,18 +61,6 @@
             this.group1.Items.Add(this.autoFocusButton);
             this.group1.Name = "group1";
             // 
-            // group2
-            // 
-            this.group2.Items.Add(this.button1);
-            this.group2.Name = "group2";
-            // 
-            // group3
-            // 
-            this.group3.Items.Add(this.button2);
-            this.group3.Items.Add(this.button3);
-            this.group3.Label = "Batch";
-            this.group3.Name = "group3";
-            // 
             // autoFocusButton
             // 
             this.autoFocusButton.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
@@ -82,6 +70,11 @@
             this.autoFocusButton.ShowImage = true;
             this.autoFocusButton.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.autoFocusButton_Click);
             // 
+            // group2
+            // 
+            this.group2.Items.Add(this.button1);
+            this.group2.Name = "group2";
+            // 
             // button1
             // 
             this.button1.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
@@ -90,6 +83,13 @@
             this.button1.Name = "button1";
             this.button1.ShowImage = true;
             this.button1.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.button1_Click);
+            // 
+            // group3
+            // 
+            this.group3.Items.Add(this.button2);
+            this.group3.Items.Add(this.button3);
+            this.group3.Label = "Batch";
+            this.group3.Name = "group3";
             // 
             // button2
             // 
