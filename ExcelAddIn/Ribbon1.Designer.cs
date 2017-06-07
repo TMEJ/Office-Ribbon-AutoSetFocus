@@ -41,6 +41,7 @@
             this.autoFocusButton = this.Factory.CreateRibbonButton();
             this.button1 = this.Factory.CreateRibbonButton();
             this.button2 = this.Factory.CreateRibbonButton();
+            this.button3 = this.Factory.CreateRibbonButton();
             this.tab1.SuspendLayout();
             this.group1.SuspendLayout();
             this.group2.SuspendLayout();
@@ -68,6 +69,8 @@
             // group3
             // 
             this.group3.Items.Add(this.button2);
+            this.group3.Items.Add(this.button3);
+            this.group3.Label = "Batch";
             this.group3.Name = "group3";
             // 
             // autoFocusButton
@@ -92,10 +95,19 @@
             // 
             this.button2.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
             this.button2.Image = global::ExcelAddIn.Properties.Resources.契約書のフリーアイコン;
-            this.button2.Label = "BatchSetFocus";
+            this.button2.Label = "SetFocus";
             this.button2.Name = "button2";
             this.button2.ShowImage = true;
             this.button2.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.button2_Click);
+            // 
+            // button3
+            // 
+            this.button3.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
+            this.button3.Image = global::ExcelAddIn.Properties.Resources.フロッピーディスクアイコン3;
+            this.button3.Label = "SaveAs";
+            this.button3.Name = "button3";
+            this.button3.ShowImage = true;
+            this.button3.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.button3_Click);
             // 
             // Ribbon1
             // 
@@ -123,6 +135,7 @@
         internal Microsoft.Office.Tools.Ribbon.RibbonButton button1;
         internal Microsoft.Office.Tools.Ribbon.RibbonGroup group3;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton button2;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton button3;
     }
 
     partial class ThisRibbonCollection

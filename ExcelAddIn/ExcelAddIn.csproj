@@ -34,7 +34,7 @@
     <PublishUrl>発行\</PublishUrl>
     <InstallUrl />
     <TargetCulture>ja</TargetCulture>
-    <ApplicationVersion>1.0.0.11</ApplicationVersion>
+    <ApplicationVersion>1.0.0.13</ApplicationVersion>
     <AutoIncrementApplicationRevision>true</AutoIncrementApplicationRevision>
     <UpdateEnabled>true</UpdateEnabled>
     <UpdateInterval>7</UpdateInterval>
@@ -226,6 +226,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\契約書のフリーアイコン.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\フロッピーディスクアイコン3.png" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

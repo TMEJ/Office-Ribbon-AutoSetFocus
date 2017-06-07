@@ -63,6 +63,16 @@ namespace ExcelAddIn.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
+        internal static System.Drawing.Bitmap フロッピーディスクアイコン3 {
+            get {
+                object obj = ResourceManager.GetObject("フロッピーディスクアイコン3", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
         internal static System.Drawing.Bitmap 契約書のフリーアイコン {
             get {
                 object obj = ResourceManager.GetObject("契約書のフリーアイコン", resourceCulture);

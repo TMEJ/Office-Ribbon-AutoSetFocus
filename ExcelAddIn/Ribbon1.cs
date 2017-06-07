@@ -7,6 +7,7 @@ using Excel = Microsoft.Office.Interop.Excel;
 using Office = Microsoft.Office.Core;
 using System.Windows.Forms;
 using System.IO;
+using System.Diagnostics;
 namespace ExcelAddIn
 {
     public partial class Ribbon1
@@ -72,6 +73,7 @@ namespace ExcelAddIn
             
             using (var fbd = new FolderBrowserDialog())
             {
+                fbd.Description = "対象フォルダ";
                 DialogResult result = fbd.ShowDialog();
 
                 if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
@@ -101,11 +103,43 @@ namespace ExcelAddIn
                         }
                     }
                     temp.Activate();
-                    temp.get_Range("A" + i).Value = "処理完了　完了" + i;
-
+                    temp.get_Range("A" + i).Value = "処理完了　完了" + (i-1);
+                    MessageBox.Show("処理完了　完了" + (i - 1));
                 }
             }
 
+        }
+
+        private void button3_Click(object sender, RibbonControlEventArgs e)
+        {
+            Excel.Window window = e.Control.Context;
+            Excel.Worksheet temp = (Excel.Worksheet)window.Application.ActiveSheet;
+            int i = 1;
+            var fbd = new FolderBrowserDialog();
+            fbd.Description = "保存場所";
+            if (fbd.ShowDialog() == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
+            {
+                string path = fbd.SelectedPath;
+                while (!string.IsNullOrEmpty(temp.Cells[i, 1].Value))
+                {
+                    string filename = temp.Cells[i, 1].Value;
+                    filename = filename.Split('\\').Last();
+                    filename = filename.Split('.').First();
+
+                    Excel.Application app = new Excel.Application();
+                    Excel.Workbook newworkbook = app.Workbooks.Add();
+                    Excel.Worksheet newTab = newworkbook.Sheets[1];
+                    newTab.Activate();
+                    newTab.Cells[1, 1] = "Hello World";
+                    newworkbook.SaveAs(path + "\\" + filename);
+                    newworkbook.Close();
+                    temp.Activate();
+                    i++;
+                }
+
+                Process.Start(path);
+                
+            }
         }
     }
 }
