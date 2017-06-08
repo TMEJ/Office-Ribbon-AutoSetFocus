@@ -28,6 +28,7 @@ namespace ExcelAddIn
                 Excel.Worksheet worksheet = (Excel.Worksheet)item;
                 worksheet.Activate();
                 worksheet.get_Range("A1").Select();
+                window.SmallScroll(-worksheet.Rows.Count, Type.Missing, -worksheet.Columns.Count);
             }
             Excel.Worksheet sheet1 = (Excel.Worksheet)activeWorkbook.Sheets[1];
             sheet1.Activate();
@@ -61,6 +62,7 @@ namespace ExcelAddIn
                 Excel.Worksheet worksheet = (Excel.Worksheet)item;
                 worksheet.Activate();
                 worksheet.get_Range("A1").Select();
+                window.SmallScroll(-worksheet.Rows.Count, Type.Missing, -worksheet.Columns.Count);
             }
             Excel.Worksheet sheet1 = (Excel.Worksheet)activeWorkbook.Sheets[1];
             sheet1.Activate();
@@ -92,6 +94,7 @@ namespace ExcelAddIn
                                 Excel.Worksheet worksheet = (Excel.Worksheet)sheet;
                                 worksheet.Activate();
                                 worksheet.get_Range("A1").Select();
+                                app.ActiveWindow.SmallScroll(-worksheet.Rows.Count, Type.Missing, -worksheet.Columns.Count);
                             }
                             Excel.Worksheet sheet1 = (Excel.Worksheet)activeWorkbook.Sheets[1];
                             sheet1.Activate();
