@@ -63,6 +63,46 @@ namespace ExcelAddIn.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
+        internal static System.Drawing.Bitmap FocusToFirst {
+            get {
+                object obj = ResourceManager.GetObject("FocusToFirst", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        internal static System.Drawing.Bitmap FocusToFirstAndSave {
+            get {
+                object obj = ResourceManager.GetObject("FocusToFirstAndSave", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        internal static System.Drawing.Bitmap folder1 {
+            get {
+                object obj = ResourceManager.GetObject("folder1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        internal static System.Drawing.Bitmap フォルダのアイコン素材 {
+            get {
+                object obj = ResourceManager.GetObject("フォルダのアイコン素材", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
         internal static System.Drawing.Bitmap フロッピーディスクアイコン3 {
             get {
                 object obj = ResourceManager.GetObject("フロッピーディスクアイコン3", resourceCulture);

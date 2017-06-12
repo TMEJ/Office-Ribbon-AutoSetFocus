@@ -70,47 +70,66 @@ namespace ExcelAddIn
 
         private void button2_Click(object sender, RibbonControlEventArgs e)
         {
-            Excel.Window window = e.Control.Context;
-            Excel.Worksheet temp = (Excel.Worksheet)window.Application.ActiveSheet;
-
-            using (var fbd = new FolderBrowserDialog())
+            try
             {
-                fbd.Description = "対象フォルダ";
-                DialogResult result = fbd.ShowDialog();
+                Excel.Window window = e.Control.Context;
 
-                if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
+                Excel.Worksheet temp = new Excel.Worksheet();
+                if (window == null)
                 {
-                    string[] files = Directory.GetFiles(fbd.SelectedPath, "*.xls", SearchOption.AllDirectories);
-
-                    int i = 1;
-                    foreach (var item in files)
-                    {
-                        if (File.Exists(item))
-                        {
-                            Excel.Application app = new Excel.Application();
-                            Excel.Workbook activeWorkbook = app.Workbooks.Open(item);
-                            foreach (var sheet in activeWorkbook.Sheets)
-                            {
-                                Excel.Worksheet worksheet = (Excel.Worksheet)sheet;
-                                worksheet.Activate();
-                                worksheet.get_Range("A1").Select();
-                                app.ActiveWindow.SmallScroll(-worksheet.Rows.Count, Type.Missing, -worksheet.Columns.Count);
-                            }
-                            Excel.Worksheet sheet1 = (Excel.Worksheet)activeWorkbook.Sheets[1];
-                            sheet1.Activate();
-                            activeWorkbook.Save();
-                            activeWorkbook.Close();
-                            temp.Activate();
-                            temp.get_Range("A" + i).Value = item;
-                            i++;
-                        }
-                    }
+                    Excel.Application newWindow = new Excel.Application();
+                    Excel.Workbook newBook = newWindow.Workbooks.Add();
+                    temp = newBook.Sheets[1];
                     temp.Activate();
-                    temp.get_Range("A" + i).Value = "処理完了　完了" + (i - 1);
-                    MessageBox.Show("処理完了　完了" + (i - 1));
+                }
+                else
+                {
+                    temp = (Excel.Worksheet)window.Application.ActiveSheet;
+                }
+
+                using (var fbd = new FolderBrowserDialog())
+                {
+                    fbd.Description = "対象フォルダ";
+                    DialogResult result = fbd.ShowDialog();
+
+                    if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
+                    {
+                        string[] files = Directory.GetFiles(fbd.SelectedPath, "*.xls", SearchOption.AllDirectories);
+
+                        int i = 1;
+                        foreach (var item in files)
+                        {
+                            if (File.Exists(item))
+                            {
+                                Excel.Application app = new Excel.Application();
+                                Excel.Workbook activeWorkbook = app.Workbooks.Open(item);
+                                foreach (var sheet in activeWorkbook.Sheets)
+                                {
+                                    Excel.Worksheet worksheet = (Excel.Worksheet)sheet;
+                                    worksheet.Activate();
+                                    worksheet.get_Range("A1").Select();
+                                    app.ActiveWindow.SmallScroll(-worksheet.Rows.Count, Type.Missing, -worksheet.Columns.Count);
+                                }
+                                Excel.Worksheet sheet1 = (Excel.Worksheet)activeWorkbook.Sheets[1];
+                                sheet1.Activate();
+                                activeWorkbook.Save();
+                                activeWorkbook.Close();
+                                temp.Activate();
+                                temp.get_Range("A" + i).Value = item;
+                                i++;
+                            }
+                        }
+                        temp.Activate();
+                        temp.get_Range("A" + i).Value = "処理完了　完了" + (i - 1);
+                        MessageBox.Show("処理完了　完了" + (i - 1));
+                    }
                 }
             }
-
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                //throw;
+            }
         }
 
         private void button3_Click(object sender, RibbonControlEventArgs e)
