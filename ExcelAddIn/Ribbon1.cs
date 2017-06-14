@@ -8,6 +8,7 @@ using Office = Microsoft.Office.Core;
 using System.Windows.Forms;
 using System.IO;
 using System.Diagnostics;
+using Microsoft.Office.Interop.Excel;
 namespace ExcelAddIn
 {
     public partial class Ribbon1
@@ -77,8 +78,12 @@ namespace ExcelAddIn
                 Excel.Worksheet temp = new Excel.Worksheet();
                 if (window == null)
                 {
+                    
                     Excel.Application newWindow = new Excel.Application();
-                    Excel.Workbook newBook = newWindow.Workbooks.Add();
+                    newWindow.ShowWindowsInTaskbar = true;
+                    newWindow.SheetsInNewWorkbook = 1;
+                    Excel.Workbook newBook = newWindow.Workbooks.Add(XlWBATemplate.xlWBATWorksheet);
+                    newBook.Activate();
                     temp = newBook.Sheets[1];
                     temp.Activate();
                 }
@@ -132,35 +137,94 @@ namespace ExcelAddIn
             }
         }
 
+        //private void button3_Click(object sender, RibbonControlEventArgs e)
+        //{
+        //    Excel.Window window = e.Control.Context;
+        //    Excel.Worksheet temp = (Excel.Worksheet)window.Application.ActiveSheet;
+        //    int i = 1;
+        //    var fbd = new FolderBrowserDialog();
+        //    fbd.Description = "保存場所";
+        //    if (fbd.ShowDialog() == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
+        //    {
+        //        string path = fbd.SelectedPath;
+        //        while (!string.IsNullOrEmpty(temp.Cells[i, 1].Value))
+        //        {
+        //            string filename = temp.Cells[i, 1].Value;
+        //            filename = filename.Split('\\').Last();
+        //            filename = filename.Split('.').First();
+
+        //            Excel.Application app = new Excel.Application();
+        //            Excel.Workbook newworkbook = app.Workbooks.Add();
+        //            Excel.Worksheet newTab = newworkbook.Sheets[1];
+        //            newTab.Activate();
+        //            newTab.Cells[1, 1] = "Hello World";
+        //            newworkbook.SaveAs(path + "\\" + filename);
+        //            newworkbook.Close();
+        //            temp.Activate();
+        //            i++;
+        //        }
+
+        //        Process.Start(path);
+
+        //    }
+        //}
         private void button3_Click(object sender, RibbonControlEventArgs e)
         {
-            Excel.Window window = e.Control.Context;
-            Excel.Worksheet temp = (Excel.Worksheet)window.Application.ActiveSheet;
-            int i = 1;
-            var fbd = new FolderBrowserDialog();
-            fbd.Description = "保存場所";
-            if (fbd.ShowDialog() == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
+            try
             {
-                string path = fbd.SelectedPath;
-                while (!string.IsNullOrEmpty(temp.Cells[i, 1].Value))
-                {
-                    string filename = temp.Cells[i, 1].Value;
-                    filename = filename.Split('\\').Last();
-                    filename = filename.Split('.').First();
+                Excel.Window window = e.Control.Context;
 
-                    Excel.Application app = new Excel.Application();
-                    Excel.Workbook newworkbook = app.Workbooks.Add();
-                    Excel.Worksheet newTab = newworkbook.Sheets[1];
-                    newTab.Activate();
-                    newTab.Cells[1, 1] = "Hello World";
-                    newworkbook.SaveAs(path + "\\" + filename);
-                    newworkbook.Close();
+                Excel.Worksheet temp = new Excel.Worksheet();
+                if (window == null)
+                {
+
+                    Excel.Application newWindow = new Excel.Application();
+                    newWindow.ShowWindowsInTaskbar = true;
+                    newWindow.SheetsInNewWorkbook = 1;
+                    Excel.Workbook newBook = newWindow.Workbooks.Add(XlWBATemplate.xlWBATWorksheet);
+                    newBook.Activate();
+                    temp = newBook.Sheets[1];
                     temp.Activate();
-                    i++;
+                }
+                else
+                {
+                    temp = (Excel.Worksheet)window.Application.ActiveSheet;
                 }
 
-                Process.Start(path);
+                using (var fbd = new FolderBrowserDialog())
+                {
+                    fbd.Description = "対象フォルダ";
+                    DialogResult result = fbd.ShowDialog();
 
+                    if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
+                    {
+                        string[] files = Directory.GetFiles(fbd.SelectedPath, "*.xls", SearchOption.AllDirectories);
+
+                        int i = 1;
+                        foreach (var item in files)
+                        {
+                            if (File.Exists(item))
+                            {
+                                Excel.Application app = new Excel.Application();
+                                Excel.Workbook activeWorkbook = app.Workbooks.Open(item);
+
+                                activeWorkbook.ExportAsFixedFormat(XlFixedFormatType.xlTypePDF, item.Split('.')[0] + ".pdf", XlFixedFormatQuality.xlQualityStandard, false, false, Type.Missing, Type.Missing, false);
+                                activeWorkbook.Close(false);
+                                temp.Activate();
+                                temp.get_Range("A" + i).Value = item;
+                                i++;
+                            }
+                        }
+                        temp.Activate();
+                        temp.get_Range("A" + i).Value = "処理完了　完了" + (i - 1);
+                        MessageBox.Show("処理完了　完了" + (i - 1));
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                //throw;
             }
         }
     }

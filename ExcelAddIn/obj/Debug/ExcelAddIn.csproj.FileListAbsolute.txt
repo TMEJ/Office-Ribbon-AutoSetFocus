@@ -1,0 +1,12 @@
+C:\Users\Administrator\Desktop\Office-Ribbon-AutoSetFocus\ExcelAddIn\bin\Debug\ExcelAddIn.dll
+C:\Users\Administrator\Desktop\Office-Ribbon-AutoSetFocus\ExcelAddIn\bin\Debug\ExcelAddIn.pdb
+C:\Users\Administrator\Desktop\Office-Ribbon-AutoSetFocus\ExcelAddIn\bin\Debug\ExcelAddIn.dll.manifest
+C:\Users\Administrator\Desktop\Office-Ribbon-AutoSetFocus\ExcelAddIn\bin\Debug\ExcelAddIn.vsto
+C:\Users\Administrator\Desktop\Office-Ribbon-AutoSetFocus\ExcelAddIn\bin\Debug\Microsoft.Office.Tools.Common.v4.0.Utilities.dll
+C:\Users\Administrator\Desktop\Office-Ribbon-AutoSetFocus\ExcelAddIn\bin\Debug\Microsoft.Office.Tools.Common.v4.0.Utilities.xml
+C:\Users\Administrator\Desktop\Office-Ribbon-AutoSetFocus\ExcelAddIn\obj\Debug\ExcelAddIn.csprojResolveAssemblyReference.cache
+C:\Users\Administrator\Desktop\Office-Ribbon-AutoSetFocus\ExcelAddIn\obj\Debug\ExcelAddIn.Properties.Resources.resources
+C:\Users\Administrator\Desktop\Office-Ribbon-AutoSetFocus\ExcelAddIn\obj\Debug\ExcelAddIn.Ribbon1.resources
+C:\Users\Administrator\Desktop\Office-Ribbon-AutoSetFocus\ExcelAddIn\obj\Debug\ExcelAddIn.csproj.GenerateResource.Cache
+C:\Users\Administrator\Desktop\Office-Ribbon-AutoSetFocus\ExcelAddIn\obj\Debug\ExcelAddIn.dll
+C:\Users\Administrator\Desktop\Office-Ribbon-AutoSetFocus\ExcelAddIn\obj\Debug\ExcelAddIn.pdb

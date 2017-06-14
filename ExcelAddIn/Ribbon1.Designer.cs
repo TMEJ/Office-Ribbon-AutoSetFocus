@@ -36,9 +36,9 @@
         {
             this.tab1 = this.Factory.CreateRibbonTab();
             this.group1 = this.Factory.CreateRibbonGroup();
-            this.group3 = this.Factory.CreateRibbonGroup();
             this.autoFocusButton = this.Factory.CreateRibbonButton();
             this.button1 = this.Factory.CreateRibbonButton();
+            this.group3 = this.Factory.CreateRibbonGroup();
             this.button2 = this.Factory.CreateRibbonButton();
             this.button3 = this.Factory.CreateRibbonButton();
             this.tab1.SuspendLayout();
@@ -59,13 +59,6 @@
             this.group1.Items.Add(this.button1);
             this.group1.Name = "group1";
             // 
-            // group3
-            // 
-            this.group3.Items.Add(this.button2);
-            this.group3.Items.Add(this.button3);
-            this.group3.Label = "Batch";
-            this.group3.Name = "group3";
-            // 
             // autoFocusButton
             // 
             this.autoFocusButton.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
@@ -84,6 +77,13 @@
             this.button1.ShowImage = true;
             this.button1.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.button1_Click);
             // 
+            // group3
+            // 
+            this.group3.Items.Add(this.button2);
+            this.group3.Items.Add(this.button3);
+            this.group3.Label = "Batch";
+            this.group3.Name = "group3";
+            // 
             // button2
             // 
             this.button2.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
@@ -100,7 +100,6 @@
             this.button3.Label = "SaveAs";
             this.button3.Name = "button3";
             this.button3.ShowImage = true;
-            this.button3.Visible = false;
             this.button3.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.button3_Click);
             // 
             // Ribbon1
