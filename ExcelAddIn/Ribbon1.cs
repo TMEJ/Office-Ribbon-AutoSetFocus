@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using System.IO;
 using System.Diagnostics;
 using Microsoft.Office.Interop.Excel;
+using System.Runtime.InteropServices;
 namespace ExcelAddIn
 {
     public partial class Ribbon1
@@ -26,10 +27,17 @@ namespace ExcelAddIn
 
             foreach (var item in activeWorkbook.Sheets)
             {
-                Excel.Worksheet worksheet = (Excel.Worksheet)item;
-                worksheet.Activate();
-                worksheet.get_Range("A1").Select();
-                window.SmallScroll(-worksheet.Rows.Count, Type.Missing, -worksheet.Columns.Count);
+                try
+                {
+                    Excel.Worksheet worksheet = (Excel.Worksheet)item;
+                    worksheet.Activate();
+                    worksheet.get_Range("A1").Select();
+                    window.SmallScroll(-worksheet.Rows.Count, Type.Missing, -worksheet.Columns.Count);
+                }
+                catch (Exception)
+                {
+                    continue;
+                }
             }
             Excel.Worksheet sheet1 = (Excel.Worksheet)activeWorkbook.Sheets[1];
             sheet1.Activate();
@@ -60,10 +68,17 @@ namespace ExcelAddIn
 
             foreach (var item in activeWorkbook.Sheets)
             {
-                Excel.Worksheet worksheet = (Excel.Worksheet)item;
-                worksheet.Activate();
-                worksheet.get_Range("A1").Select();
-                window.SmallScroll(-worksheet.Rows.Count, Type.Missing, -worksheet.Columns.Count);
+                try
+                {
+                    Excel.Worksheet worksheet = (Excel.Worksheet)item;
+                    worksheet.Activate();
+                    worksheet.get_Range("A1").Select();
+                    window.SmallScroll(-worksheet.Rows.Count, Type.Missing, -worksheet.Columns.Count);
+                }
+                catch (Exception)
+                {
+                    continue;
+                }
             }
             Excel.Worksheet sheet1 = (Excel.Worksheet)activeWorkbook.Sheets[1];
             sheet1.Activate();
@@ -106,22 +121,57 @@ namespace ExcelAddIn
                         {
                             if (File.Exists(item))
                             {
-                                Excel.Application app = new Excel.Application();
-                                Excel.Workbook activeWorkbook = app.Workbooks.Open(item);
-                                foreach (var sheet in activeWorkbook.Sheets)
+                                string messege = string.Empty;
+                                try
                                 {
-                                    Excel.Worksheet worksheet = (Excel.Worksheet)sheet;
-                                    worksheet.Activate();
-                                    worksheet.get_Range("A1").Select();
-                                    app.ActiveWindow.SmallScroll(-worksheet.Rows.Count, Type.Missing, -worksheet.Columns.Count);
+                                    Excel.Application app = new Excel.Application();
+                                    Excel.Workbook activeWorkbook = app.Workbooks.Open(item);
+                                    foreach (var sheet in activeWorkbook.Sheets)
+                                    {
+                                        Excel.Worksheet worksheet = (Excel.Worksheet)sheet;
+                                        worksheet.Activate();
+                                        try
+                                        {
+                                            worksheet.get_Range("A1").Select();
+                                        }
+                                        catch (COMException ex)
+                                        {
+                                            if (ex.ErrorCode == -2146827284)
+                                            {
+                                                messege = "Has hidden pages or hidden rows.";
+                                                continue;
+                                            }
+                                            else
+                                            {
+                                                throw;
+                                            }
+                                        }
+                                        app.ActiveWindow.FreezePanes = false;
+                                        app.ActiveWindow.SmallScroll(-worksheet.Rows.Count, Type.Missing, -worksheet.Columns.Count);
+                                    }
+                                    Excel.Worksheet sheet1 = (Excel.Worksheet)activeWorkbook.Sheets[1];
+                                    sheet1.Activate();
+                                    activeWorkbook.Save();
+                                    activeWorkbook.Close();
+                                    temp.Activate();
+                                    temp.get_Range("A" + i).Value = item;
+                                    if (messege != string.Empty)
+                                    {
+                                        temp.get_Range("B" + i).Value =  messege;
+                                        temp.get_Range("B" + i).Font.Color = XlRgbColor.rgbOrange;
+                                    }
+                                    i++;
+
                                 }
-                                Excel.Worksheet sheet1 = (Excel.Worksheet)activeWorkbook.Sheets[1];
-                                sheet1.Activate();
-                                activeWorkbook.Save();
-                                activeWorkbook.Close();
-                                temp.Activate();
-                                temp.get_Range("A" + i).Value = item;
-                                i++;
+                                catch (COMException come)
+                                {
+                                    temp.Activate();
+                                    temp.get_Range("A" + i).Value = item;
+                                    temp.get_Range("B" + i).Value = come.Message + messege;
+                                    temp.get_Range("B" + i).Font.Color = XlRgbColor.rgbRed;
+                                    i++;
+                                    continue;
+                                }
                             }
                         }
                         temp.Activate();
